@@ -1,0 +1,372 @@
+{
+  "name": "HR Interview Scheduling Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "interview-schedule",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -576,
+        -48
+      ],
+      "id": "2d68eaa7-26e4-4ce4-a642-ed71079b9a22",
+      "name": "Webhook",
+      "webhookId": "0254ac81-cd47-4ac9-af49-53cc8d7d85f5"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "opug368@gmail.com",
+          "mode": "list",
+          "cachedResultName": "opug368@gmail.com"
+        },
+        "start": "={{ $json.body.interview_date + 'T' + $json.body.interview_time + ':00+06:00' }}",
+        "end": "={{ DateTime.fromISO($json.body.interview_date + 'T' + $json.body.interview_time + ':00+06:00').plus({ minutes: 30 }).toISO() }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1.3,
+      "position": [
+        -336,
+        -48
+      ],
+      "id": "808d7dc9-35c2-4d7f-8001-2c486cca33d8",
+      "name": "Create an event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "6nj41J4gcAHRLDb6",
+          "name": "Google Calendar account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1xQ7XDY2e1UBxRAs8ii3wKOI2ibqouEY85OdUaEoicgc",
+          "mode": "list",
+          "cachedResultName": "Candidate Screening",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xQ7XDY2e1UBxRAs8ii3wKOI2ibqouEY85OdUaEoicgc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xQ7XDY2e1UBxRAs8ii3wKOI2ibqouEY85OdUaEoicgc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "interview_status": "SCHEDULED",
+            "interview_scheduled_at": "={{ $('Webhook').item.json.body.interview_date + 'T' + $('Webhook').item.json.body.interview_time + ':00+06:00' }}",
+            "email": "={{ $('Webhook').item.json.body.email }}"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "candidate_name",
+              "displayName": "candidate_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "target_job",
+              "displayName": "target_job",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "screening_score",
+              "displayName": "screening_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "score_maximum",
+              "displayName": "score_maximum",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "recommendation",
+              "displayName": "recommendation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "human_review_required",
+              "displayName": "human_review_required",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "screened_at",
+              "displayName": "screened_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "resume_source",
+              "displayName": "resume_source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "potential_gaps",
+              "displayName": "potential_gaps",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "strengths",
+              "displayName": "strengths",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hr_decision",
+              "displayName": "hr_decision",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hr_reviewer",
+              "displayName": "hr_reviewer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hr_review_date",
+              "displayName": "hr_review_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hr_notes",
+              "displayName": "hr_notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "interview_status",
+              "displayName": "interview_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "interview_scheduled_at",
+              "displayName": "interview_scheduled_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -48,
+        -48
+      ],
+      "id": "20e3621d-0e61-42bf-a66e-3514b3e8918e",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5dMADFJGlBXeaF8v",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('Webhook').item.json.body.email }}",
+        "subject": "=Interview Confirmed — {{ $('Webhook').item.json.body.target_job }}",
+        "emailType": "text",
+        "message": "=Hello {{ $('Webhook').item.json.body.candidate_name }},\n\nCongratulations!\n\nYour interview for the {{ $('Webhook').item.json.body.target_job }} position has been successfully scheduled.\n\nInterview Details\n-------------------------\nDate: {{ $('Webhook').item.json.body.interview_date }}\nTime: {{ $('Webhook').item.json.body.interview_time }}\nTime Zone: Asia/Dhaka\nStatus: SCHEDULED\n\nYour interview has also been added to our Google Calendar.\n\nGoogle Calendar Event:\n{{ $('Create an event').item.json.htmlLink }}\n\nPlease be available a few minutes before the scheduled time.\n\nBest regards,\nHR Interview Automation System",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        160,
+        -48
+      ],
+      "id": "f54e24c3-676b-4176-b5f5-31e101e3ad10",
+      "name": "Send a message",
+      "webhookId": "b6bab923-47de-424e-b67b-bd5353059b0a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "k9X1FsEeLDpa6MSU",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"success\": true,\n  \"candidate_name\": \"={{ $('Webhook').item.json.body.candidate_name }}\",\n  \"email\": \"={{ $('Webhook').item.json.body.email }}\",\n  \"interview_date\": \"={{ $('Webhook').item.json.body.interview_date }}\",\n  \"interview_time\": \"={{ $('Webhook').item.json.body.interview_time }}\",\n  \"status\": \"SCHEDULED\",\n  \"message\": \"Interview scheduled successfully\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        368,
+        -48
+      ],
+      "id": "666bda8f-d44f-4927-b77e-fcf86fcc0f39",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Create an event",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create an event": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "45120a73-d170-4735-a1a6-6a46294c78d2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a2722732ac6e7a4dd8b19a9a2e10278bebb09f92074d992974928382839956ee"
+  },
+  "nodeGroups": [],
+  "id": "rHqjKM57KQbPwQAr",
+  "tags": []
+}
