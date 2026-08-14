@@ -1,83 +1,84 @@
 # AI HR Interview Automation — n8n
 
-An AI-assisted HR interview and candidate screening automation workflow built with n8n.
+An AI-assisted HR interview and candidate screening automation system built with n8n, AI Agents, APIs and workflow automation.
+
+The project is designed to automate repetitive recruitment tasks while keeping candidate evaluation and hiring decisions structured, reviewable and human-controlled.
 
 ## Overview
 
-This project demonstrates how AI and workflow automation can be used to streamline repetitive HR interview and candidate screening tasks while keeping human oversight in the decision-making process.
+This project demonstrates an end-to-end HR interview automation workflow that helps organize candidate intake, interview scheduling, interview result processing and hiring decision workflows.
+
+The goal is not to replace human judgment, but to reduce repetitive administrative work and provide a structured process for HR teams.
 
 ## Key Features
 
-- AI-assisted CV and candidate screening
-- Evidence-based candidate evaluation
+- Candidate intake automation
+- AI-assisted candidate screening
 - Structured interview workflow
-- Automated interview orchestration
-- AI-generated interview notes and results
-- Structured candidate scoring and evaluation
+- Automated interview scheduling
+- Interview result processing
+- AI-generated interview notes and evaluation
+- Structured candidate scoring
+- Decision automation
 - Automated workflow routing using n8n
 - Human-controlled hiring decisions
+- API and webhook integrations
 
-## Workflow
+## Automation Workflows
 
-The automation connects different stages of the recruitment process into a structured workflow:
+### 1. Candidate Intake
 
-Candidate Data  
-↓  
-AI-assisted Screening  
-↓  
-Candidate Evaluation  
-↓  
-Interview Process  
-↓  
-Interview Result & Notes  
-↓  
-Structured Hiring Workflow
+Handles the initial candidate information and starts the recruitment workflow.
 
-## Technologies
+**Key tasks:**
+- Receive candidate information
+- Process candidate data
+- Start the screening workflow
+- Route information to the appropriate automation stages
 
-- n8n
-- AI / LLM
-- AI Agents
-- Webhooks
-- APIs
-- JavaScript
-- Workflow Automation
+### 2. Interview Scheduling Automation
 
-## Design Principles
+Automates the interview scheduling workflow after the candidate reaches the interview stage.
 
-This project follows several principles for responsible HR automation:
+**Key tasks:**
+- Manage interview scheduling
+- Process interview-related information
+- Automate workflow communication
+- Connect scheduling with the recruitment workflow
 
-- Structured workflows
-- Evidence-based evaluation
-- Consistent candidate assessment
-- Auditability
-- Human oversight
+### 3. Interview Results & Final Hiring
 
-The goal is to automate repetitive administrative work without fully automating human judgment.
+Processes interview results and generates structured interview information for the next stage of the recruitment process.
 
-## Use Case
+**Key tasks:**
+- Process interview results
+- Generate structured interview notes
+- Organize evaluation information
+- Prepare results for the hiring workflow
 
-The workflow can help HR teams reduce repetitive manual tasks during candidate screening and interview coordination while maintaining a structured and reviewable process.
+### 4. Decision Automation
 
-## Future Improvements
+Handles the structured decision workflow based on the available candidate and interview information.
 
-- Candidate dashboard
-- Interview scheduling automation
-- Automated email communication
-- Candidate database integration
-- More advanced evaluation analytics
-- Human review and approval interface
+**Key tasks:**
+- Evaluate workflow conditions
+- Route candidates through appropriate paths
+- Generate structured outcomes
+- Support the final human-controlled hiring decision
 
-## Project Status
+## Workflow Architecture
 
-🚧 Work in Progress
-
-This project is continuously being improved as I learn and experiment with AI automation, n8n and AI-powered workflows.
-
-## Author
-
-**Apu Ghosh**
-
-AI Automation Specialist
-
-Focused on n8n workflow automation, AI Agents, API integration and business process automation.
+```text
+Candidate Intake
+       ↓
+Candidate Screening
+       ↓
+Interview Scheduling
+       ↓
+Interview Process
+       ↓
+Interview Results
+       ↓
+Decision Automation
+       ↓
+Final Hiring Workflow
