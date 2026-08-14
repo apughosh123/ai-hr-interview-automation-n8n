@@ -1,0 +1,430 @@
+{
+  "name": "HR Decision Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1xQ7XDY2e1UBxRAs8ii3wKOI2ibqouEY85OdUaEoicgc",
+          "mode": "list",
+          "cachedResultName": "Candidate Screening",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xQ7XDY2e1UBxRAs8ii3wKOI2ibqouEY85OdUaEoicgc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xQ7XDY2e1UBxRAs8ii3wKOI2ibqouEY85OdUaEoicgc/edit#gid=0"
+        },
+        "event": "rowUpdate",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        -752,
+        -96
+      ],
+      "id": "ba61937c-ac2f-4306-b850-2a57d7076e8c",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "zZSW0TVyEiAAUBGi",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "f6d7478b-ed83-406c-9cc9-b56d809e05de",
+              "leftValue": "={{ $json.hr_decision }}",
+              "rightValue": "APPROVED",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -512,
+        64
+      ],
+      "id": "d7ac82dc-b807-404f-83ba-d3f7ae0653ae",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1xQ7XDY2e1UBxRAs8ii3wKOI2ibqouEY85OdUaEoicgc",
+          "mode": "list",
+          "cachedResultName": "Candidate Screening",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xQ7XDY2e1UBxRAs8ii3wKOI2ibqouEY85OdUaEoicgc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xQ7XDY2e1UBxRAs8ii3wKOI2ibqouEY85OdUaEoicgc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "hr_decision": "={{ $json.hr_decision }}",
+            "hr_review_date": "={{ $now }}",
+            "email": "={{ $json.email }}",
+            "interview_status": "SCHEDULE_PENDING"
+          },
+          "matchingColumns": [
+            "email"
+          ],
+          "schema": [
+            {
+              "id": "candidate_name",
+              "displayName": "candidate_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "target_job",
+              "displayName": "target_job",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "screening_score",
+              "displayName": "screening_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "score_maximum",
+              "displayName": "score_maximum",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "recommendation",
+              "displayName": "recommendation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "human_review_required",
+              "displayName": "human_review_required",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "screened_at",
+              "displayName": "screened_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "resume_source",
+              "displayName": "resume_source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "potential_gaps",
+              "displayName": "potential_gaps",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "strengths",
+              "displayName": "strengths",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hr_decision",
+              "displayName": "hr_decision",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hr_reviewer",
+              "displayName": "hr_reviewer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hr_review_date",
+              "displayName": "hr_review_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "hr_notes",
+              "displayName": "hr_notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "interview_status",
+              "displayName": "interview_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "interview_scheduled_at",
+              "displayName": "interview_scheduled_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -304,
+        -112
+      ],
+      "id": "3734a76e-2998-4314-80bf-db32e812360a",
+      "name": "Update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5dMADFJGlBXeaF8v",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "=Interview Invitation — {{ $json.target_job }}",
+        "emailType": "text",
+        "message": "=Hello {{ $json.candidate_name }},\n\nCongratulations!\n\nWe are pleased to inform you that your application for the {{ $json.target_job }} position has been approved for the next stage of our recruitment process.\n\nWe would like to invite you to an interview.\n\nInterview Status: {{ $json.interview_status }}\n\nOur HR team will contact you shortly with the available interview date and time.\n\nPlease keep an eye on your email and confirm your availability once you receive the scheduling details.\n\nBest regards,\nHR Interview Automation System",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        320,
+        48
+      ],
+      "id": "cd1b1ae0-83ab-4b0f-967d-b895bd8268fa",
+      "name": "Send a message",
+      "webhookId": "e967b55e-fccb-4006-af5c-23b38827fa5a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "k9X1FsEeLDpa6MSU",
+          "name": "Gmail account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0881186e-c05d-4c42-93d0-28a8c7d2884f",
+              "name": "candidate_name",
+              "value": "={{ $('Google Sheets Trigger').first().json.candidate_name }}",
+              "type": "string"
+            },
+            {
+              "id": "24c8e796-cd5b-427b-8d59-00ea8a91d78a",
+              "name": "email",
+              "value": "={{ $('Google Sheets Trigger').first().json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "a1cc92a2-79d3-4620-bac3-cebbc2d3f7c7",
+              "name": "target_job",
+              "value": "={{ $('Google Sheets Trigger').first().json.target_job }}",
+              "type": "string"
+            },
+            {
+              "id": "7daf3728-12a9-4335-9cdd-04608122f773",
+              "name": "interview_status",
+              "value": "={{ $('Update row in sheet').first().json.interview_status }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -96,
+        -112
+      ],
+      "id": "43031734-3dff-41ec-bd03-285f8ad60081",
+      "name": "Prepare Interview Email"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Prepare Interview Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Interview Email": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "da113dd8-d23f-4905-a24e-b49d6e8d638c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a2722732ac6e7a4dd8b19a9a2e10278bebb09f92074d992974928382839956ee"
+  },
+  "nodeGroups": [],
+  "id": "p6vJ5VZHGWHfHXxW",
+  "tags": []
+}
