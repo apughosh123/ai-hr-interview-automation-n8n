@@ -1,0 +1,1103 @@
+{
+  "name": "HR Interview Automation - Candidate Intake",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hr-candidate-intake",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -1104,
+        -192
+      ],
+      "id": "dd4f0fb0-2417-4bcf-8eb0-62770e100aab",
+      "name": "Webhook",
+      "webhookId": "bd71b129-8036-4c92-95f1-76c37a05bcc8"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ce7740b8-d7ba-45bb-b8c1-6263c287c17b",
+              "name": "candidate_name",
+              "value": "={{ $json.body.candidate_name }}",
+              "type": "string"
+            },
+            {
+              "id": "7b86472a-52a3-4d22-8829-f2d7083f6a11",
+              "name": "email",
+              "value": "={{ $json.body.email }}",
+              "type": "string"
+            },
+            {
+              "id": "b4c95bff-5f3a-459d-bfb3-4a8cd0c60609",
+              "name": "phone",
+              "value": "={{ $json.body.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "4f3c01eb-e748-436a-b43d-e56e15a25d67",
+              "name": "job_title",
+              "value": "={{ $json.body.job_title }}",
+              "type": "string"
+            },
+            {
+              "id": "26fb6a1c-d900-4567-9934-1ec41fd01037",
+              "name": "resume_url",
+              "value": "={{ $json.body.resume_url }}",
+              "type": "string"
+            },
+            {
+              "id": "7edda901-ec77-4e87-9841-48b7d09d2412",
+              "name": "source",
+              "value": "={{ $json.body.source }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -880,
+        -192
+      ],
+      "id": "32b44527-c897-4ad4-8962-e348679e6df7",
+      "name": "Normalize Candidate Intake"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "e1f7b471-b826-4721-935b-f6c647c9f0b3",
+              "leftValue": "={{ $json.candidate_name }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "bd882a4c-3e3b-45c4-8021-695ee50ffba0",
+              "leftValue": "={{ $json.email }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "6d29e52c-24b2-452f-b702-2dbcab3f359c",
+              "leftValue": "={{ $json.job_title }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "b53c1ed2-91cb-471c-b183-83e03ba3a3e9",
+              "leftValue": "={{ $json.resume_url }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        -656,
+        -192
+      ],
+      "id": "3aa7f69c-fa2a-4b4c-bd27-c7c369218fb0",
+      "name": "Validate Candidate Intake"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f1068c2f-49e1-4ba6-a28a-ce3d54ed72f2",
+              "name": "intake_status",
+              "value": "VALID",
+              "type": "string"
+            },
+            {
+              "id": "26c9dfc3-1b62-402c-baca-4a3df3e7cac9",
+              "name": "candidate_name",
+              "value": "={{ $json.candidate_name }}",
+              "type": "string"
+            },
+            {
+              "id": "6eede573-344a-4b1c-8552-62551e6b5aa3",
+              "name": "email",
+              "value": "={{ $json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "420293cd-929e-4f48-8531-9b52ac3a6977",
+              "name": "job_title",
+              "value": "={{ $json.job_title }}",
+              "type": "string"
+            },
+            {
+              "id": "683f0c6c-15f2-4ed7-8b98-e3e258d717dc",
+              "name": "resume_url",
+              "value": "={{ $json.resume_url }}",
+              "type": "string"
+            },
+            {
+              "id": "cd36f97d-b9f6-49b1-8911-f289961bbe79",
+              "name": "source",
+              "value": "={{ $json.source }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -432,
+        -288
+      ],
+      "id": "077dc061-1c28-4369-8724-5f9fe4fcf2fd",
+      "name": "Mark Candidate Valid"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "2acafd31-70ef-450e-902e-c6c4f1c6f210",
+              "name": "intake_status",
+              "value": "INVALID",
+              "type": "string"
+            },
+            {
+              "id": "451cca17-955e-499f-b504-607454a11fcf",
+              "name": "reason",
+              "value": "Missing required candidate information",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -432,
+        -96
+      ],
+      "id": "beda5554-ff5e-49b4-9042-26e9a28dad2c",
+      "name": "Mark Intake Invalid"
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        16,
+        -288
+      ],
+      "id": "0925f349-aa97-492c-b32b-51949f39a200",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1e1WWenHzoQj6P2XRqM5BZeoWiQAZdpgi",
+          "mode": "list",
+          "cachedResultName": "Apu_Ghosh_Bangladesh_Corporate_CV_JapanStyle_Final_with_Photo.pdf",
+          "cachedResultUrl": "https://drive.google.com/file/d/1e1WWenHzoQj6P2XRqM5BZeoWiQAZdpgi/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        -208,
+        -288
+      ],
+      "id": "a7022b32-a88d-4578-8123-48ef335808ac",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "6CXcHXDfCmay8269",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Evidence Extraction Engine for a professional HR Interview Automation MVP.\n\nYour job is to analyze the candidate's extracted CV text and convert it into a structured, evidence-based candidate profile.\n\nThe purpose of this stage is ONLY to extract factual information from the CV.\n\nDo NOT rank the candidate.\nDo NOT score the candidate.\nDo NOT recommend hire/reject.\nDo NOT make assumptions about the candidate.\nDo NOT invent missing information.\n\n========================\nSTRICT EVIDENCE RULES\n========================\n\n1. Use ONLY information explicitly supported by the CV text.\n\n2. Never invent:\n   - work experience\n   - job titles\n   - company names\n   - years of experience\n   - skills\n   - technologies\n   - education\n   - certifications\n   - achievements\n   - project details\n   - performance metrics\n   - responsibilities\n   - employment dates\n\n3. If a field is not available in the CV, return:\n   - null for single-value fields\n   - [] for list fields\n\n4. If the CV makes a claim but does not provide enough detail, preserve the claim without adding unsupported details.\n\n5. Extract evidence using the candidate's original terminology whenever possible.\n\n6. Distinguish between:\n   - factual information directly stated in the CV\n   - potential gaps where information is not provided\n\n7. Do not infer that the candidate has a skill simply because it is related to another skill.\n\nExample:\nIf the CV says \"JavaScript\", do not automatically add \"TypeScript\".\n\n8. Do not infer seniority from job titles unless the CV explicitly states it.\n\n9. Do not infer years of experience from project dates unless the CV explicitly supports the calculation.\n\n10. Do not convert vague statements into specific achievements.\n\n11. Do not add information from your general knowledge.\n\n12. The CV is the only source of truth for this stage.\n\n========================\nEXTRACTION TASK\n========================\n\nExtract the following information:\n\nA. Candidate identity\nB. Contact information\nC. Education\nD. Professional experience\nE. Technical and professional skills\nF. Projects\nG. Certifications\nH. Achievements\nI. Evidence-backed claims\nJ. Potential information gaps\n\n========================\nREQUIRED OUTPUT\n========================\n\nReturn exactly ONE valid JSON object using this structure:\n\n{\n  \"candidate\": {\n    \"name\": null,\n    \"email\": null,\n    \"phone\": null,\n    \"linkedin\": null,\n    \"github\": null\n  },\n\n  \"education\": [\n    {\n      \"degree\": null,\n      \"field\": null,\n      \"institution\": null,\n      \"start_date\": null,\n      \"end_date\": null\n    }\n  ],\n\n  \"experience\": [\n    {\n      \"job_title\": null,\n      \"company\": null,\n      \"employment_type\": null,\n      \"location\": null,\n      \"start_date\": null,\n      \"end_date\": null,\n      \"responsibilities\": [],\n      \"technologies\": []\n    }\n  ],\n\n  \"skills\": [],\n\n  \"projects\": [\n    {\n      \"name\": null,\n      \"description\": null,\n      \"technologies\": [],\n      \"evidence\": null\n    }\n  ],\n\n  \"certifications\": [],\n\n  \"achievements\": [],\n\n  \"evidence\": [\n    {\n      \"claim\": null,\n      \"supporting_text\": null,\n      \"source\": \"CV\"\n    }\n  ],\n\n  \"potential_gaps\": []\n}\n\n========================\nJSON RULES\n========================\n\nIMPORTANT:\n\n- Return ONLY the JSON object.\n- Do NOT use Markdown.\n- Do NOT use ```json.\n- Do NOT use ``` at all.\n- Do NOT write an introduction.\n- Do NOT write an explanation.\n- Do NOT write a conclusion.\n- Do NOT write anything before the opening {.\n- Do NOT write anything after the closing }.\n- The response MUST start with {.\n- The response MUST end with }.\n- All property names must use double quotes.\n- All string values must use double quotes.\n- The JSON must be syntactically valid.\n- Never leave the JSON incomplete.\n- Always close every object and array.\n- If information is unavailable, use null or [] instead of guessing.\n\nBefore returning the response, internally verify that:\n1. The JSON is complete.\n2. All brackets and braces are closed.\n3. No Markdown code fences are present.\n4. No unsupported information has been added.\n5. The response starts with { and ends with }.\n\n========================\nCV TEXT\n========================\n\n{{ $json.text }}\n\n========================\nFINAL INSTRUCTION\n========================\n\nNow extract the candidate evidence from the CV text above and return the complete valid JSON object only.",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        240,
+        -288
+      ],
+      "id": "e3164bcb-8d5c-4e56-b9b3-ffbf588d2c24",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.1,
+      "position": [
+        320,
+        -64
+      ],
+      "id": "bd37d714-67e7-4320-9e5e-99320a0b789d",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "ix8bjQiIMdlFGDHb",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $json.text || $json.output || $json.response || '';\n\nlet cleaned = raw\n  .replace(/```json/gi, '')\n  .replace(/```/g, '')\n  .trim();\n\nlet parsed;\n\ntry {\n  parsed = JSON.parse(cleaned);\n} catch (error) {\n  throw new Error('AI returned invalid JSON: ' + error.message);\n}\n\nreturn {\n  json: {\n    ...parsed,\n    parsed_successfully: true\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        592,
+        -288
+      ],
+      "id": "94157f62-db92-4a5b-999e-82d93b1865de",
+      "name": "Parse Resume Analysis"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $json;\n\n// Target job from the intake stage\nconst targetJob =\n  $('Normalize Candidate Intake').first().json.job_title || '';\n\nconst job = String(targetJob).toLowerCase();\n\n// Safely handle extracted arrays\nconst skills = Array.isArray(data.skills) ? data.skills : [];\nconst projects = Array.isArray(data.projects) ? data.projects : [];\nconst education = Array.isArray(data.education) ? data.education : [];\nconst certifications = Array.isArray(data.certifications)\n  ? data.certifications\n  : [];\nconst evidence = Array.isArray(data.evidence) ? data.evidence : [];\nconst potentialGaps = Array.isArray(data.potential_gaps)\n  ? data.potential_gaps\n  : [];\n\n// --------------------------------------------------\n// 1. TECHNICAL SKILLS — MAX 30\n// --------------------------------------------------\n\nconst technicalKeywords = [\n  'javascript',\n  'html',\n  'css',\n  'react',\n  'tailwind',\n  'bootstrap',\n  'n8n',\n  'api',\n  'rest api',\n  'webhook',\n  'automation',\n  'ai',\n  'git',\n  'github',\n  'frontend',\n  'web development'\n];\n\nconst relevantSkills = skills.filter(skill => {\n  const skillText = String(skill).toLowerCase();\n\n  return technicalKeywords.some(keyword =>\n    skillText.includes(keyword)\n  );\n});\n\nconst technicalScore = Math.min(\n  30,\n  relevantSkills.length * 5\n);\n\n// --------------------------------------------------\n// 2. PROJECT / EXPERIENCE RELEVANCE — MAX 25\n// --------------------------------------------------\n\nconst relevantProjects = projects.filter(project => {\n  const projectText = JSON.stringify(project).toLowerCase();\n\n  if (\n    job.includes('frontend') ||\n    job.includes('web developer') ||\n    job.includes('software engineer')\n  ) {\n    return (\n      projectText.includes('frontend') ||\n      projectText.includes('web') ||\n      projectText.includes('html') ||\n      projectText.includes('css') ||\n      projectText.includes('javascript') ||\n      projectText.includes('react') ||\n      projectText.includes('tailwind') ||\n      projectText.includes('bootstrap')\n    );\n  }\n\n  if (\n    job.includes('automation') ||\n    job.includes('ai')\n  ) {\n    return (\n      projectText.includes('automation') ||\n      projectText.includes('ai') ||\n      projectText.includes('n8n') ||\n      projectText.includes('workflow')\n    );\n  }\n\n  return true;\n});\n\nconst projectScore = Math.min(\n  25,\n  relevantProjects.length * 8\n);\n\n// --------------------------------------------------\n// 3. EDUCATION — MAX 15\n// --------------------------------------------------\n\nconst educationScore =\n  education.length > 0 ? 15 : 0;\n\n// --------------------------------------------------\n// 4. CERTIFICATIONS — MAX 10\n// --------------------------------------------------\n\nconst certificationScore = Math.min(\n  10,\n  certifications.length * 5\n);\n\n// --------------------------------------------------\n// 5. EVIDENCE QUALITY — MAX 10\n// --------------------------------------------------\n\nconst evidenceScore = Math.min(\n  10,\n  evidence.length * 2\n);\n\n// --------------------------------------------------\n// TOTAL SCORE\n// --------------------------------------------------\n\nconst totalScore =\n  technicalScore +\n  projectScore +\n  educationScore +\n  certificationScore +\n  evidenceScore;\n\n// --------------------------------------------------\n// RECOMMENDATION\n// --------------------------------------------------\n\nlet status;\n\nif (totalScore >= 75) {\n  status = 'STRONG_MATCH';\n} else if (totalScore >= 55) {\n  status = 'POTENTIAL_MATCH';\n} else {\n  status = 'REVIEW_REQUIRED';\n}\n\n// --------------------------------------------------\n// HUMAN OVERSIGHT\n// --------------------------------------------------\n\nconst humanReviewRequired = true;\n\n// --------------------------------------------------\n// FINAL OUTPUT\n// --------------------------------------------------\n\nreturn {\n  json: {\n    candidate: data.candidate || {},\n    \n    target_job: targetJob,\n\n    screening_score: totalScore,\n\n    score_maximum: 90,\n\n    score_breakdown: {\n      technical_skills: {\n        score: technicalScore,\n        maximum: 30,\n        relevant_skills: relevantSkills\n      },\n\n      relevant_projects: {\n        score: projectScore,\n        maximum: 25,\n        relevant_project_count: relevantProjects.length,\n        projects: relevantProjects\n      },\n\n      education: {\n        score: educationScore,\n        maximum: 15\n      },\n\n      certifications: {\n        score: certificationScore,\n        maximum: 10,\n        certification_count: certifications.length\n      },\n\n      evidence_quality: {\n        score: evidenceScore,\n        maximum: 10,\n        evidence_count: evidence.length\n      }\n    },\n\n    strengths: evidence,\n\n    potential_gaps: potentialGaps,\n\n    recommendation: {\n      status: status,\n      reason:\n        status === 'STRONG_MATCH'\n          ? 'Strong evidence-based alignment with the target role.'\n          : status === 'POTENTIAL_MATCH'\n            ? 'Candidate shows relevant evidence but requires human review.'\n            : 'Insufficient evidence for automatic progression.'\n    },\n\n    governance: {\n      scoring_method: 'Deterministic evidence-based scoring',\n      ai_decision: false,\n      human_review_required: humanReviewRequired,\n      final_hiring_decision: 'Human decision required'\n    },\n\n    parsed_successfully: true\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        816,
+        -288
+      ],
+      "id": "5633bf71-92c2-444a-93ce-8809e103d39e",
+      "name": "Deterministic Candidate Scoring"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "15MjIlHbOcfa2_WMyNP4cJ4c5v_q3WFNSzc2q6xSteB4",
+          "mode": "list",
+          "cachedResultName": "HR_Interview_Automation",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15MjIlHbOcfa2_WMyNP4cJ4c5v_q3WFNSzc2q6xSteB4/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/15MjIlHbOcfa2_WMyNP4cJ4c5v_q3WFNSzc2q6xSteB4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Screened At": "={{ $now }}",
+            "Resume Source": "={{ $('Normalize Candidate Intake').first().json.resume_url }}",
+            "Potential Gaps": "={{ JSON.stringify($json.potential_gaps) }}",
+            "Strengths": "={{ JSON.stringify($json.strengths) }}",
+            "Evidence Score": "={{ $json.score_breakdown.evidence_quality.score }}",
+            "Certification Score": "={{ $json.score_breakdown.certifications.score }}",
+            "Education Score": "={{ $json.score_breakdown.education.score }}",
+            "Project Score": "={{ $json.score_breakdown.relevant_projects.score }}",
+            "Technical Score": "={{ $json.score_breakdown.technical_skills.score }}",
+            "Human Review Required": "={{ $json.governance.human_review_required }}",
+            "Recommendation": "={{ $json.recommendation.status }}",
+            "Score Maximum": "={{ $json.score_maximum }}",
+            "Screening Score": "={{ $json.screening_score }}",
+            "Target Job": "={{ $json.target_job }}",
+            "Email": "={{ $json.candidate.email }}",
+            "Candidate Name": "={{ $json.candidate.name }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Candidate Name",
+              "displayName": "Candidate Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Target Job",
+              "displayName": "Target Job",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Screening Score",
+              "displayName": "Screening Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Score Maximum",
+              "displayName": "Score Maximum",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Recommendation",
+              "displayName": "Recommendation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Human Review Required",
+              "displayName": "Human Review Required",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Technical Score",
+              "displayName": "Technical Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Project Score",
+              "displayName": "Project Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Education Score",
+              "displayName": "Education Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Certification Score",
+              "displayName": "Certification Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Evidence Score",
+              "displayName": "Evidence Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Strengths",
+              "displayName": "Strengths",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Potential Gaps",
+              "displayName": "Potential Gaps",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Resume Source",
+              "displayName": "Resume Source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Screened At",
+              "displayName": "Screened At",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1040,
+        -288
+      ],
+      "id": "d8f3e6e2-65b1-4bc8-a558-9a4f8c1327b0",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5dMADFJGlBXeaF8v",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "8fe300ec-91f2-41e7-befc-4321681dda9e",
+              "name": "candidate_name",
+              "value": "={{ $('Deterministic Candidate Scoring').first().json.candidate.name }}",
+              "type": "string"
+            },
+            {
+              "id": "457dbf49-59ae-412d-a535-9f1a34b2e66f",
+              "name": "email",
+              "value": "={{ $('Deterministic Candidate Scoring').first().json.candidate.email }}",
+              "type": "string"
+            },
+            {
+              "id": "8e122859-3127-4869-9fee-df380e6f798f",
+              "name": "phone",
+              "value": "={{ $('Deterministic Candidate Scoring').first().json.candidate.phone }}",
+              "type": "string"
+            },
+            {
+              "id": "cffbe123-e83b-4846-974d-4849bc8823d3",
+              "name": "target_job",
+              "value": "={{ $('Deterministic Candidate Scoring').first().json.target_job }}",
+              "type": "string"
+            },
+            {
+              "id": "e883a2eb-d780-489e-9979-e146b35c038b",
+              "name": "screening_score",
+              "value": "={{ $('Deterministic Candidate Scoring').first().json.screening_score }}",
+              "type": "string"
+            },
+            {
+              "id": "83ea1f4e-91b3-444c-9465-9dc44f2e874d",
+              "name": "score_maximum",
+              "value": "={{ $('Deterministic Candidate Scoring').first().json.score_maximum }}",
+              "type": "string"
+            },
+            {
+              "id": "b3b820d9-9943-4cfc-9038-6815553d1165",
+              "name": "recommendation",
+              "value": "={{ $('Deterministic Candidate Scoring').first().json.recommendation.status }}",
+              "type": "string"
+            },
+            {
+              "id": "4b30491e-4ed6-4126-a311-d92138b27381",
+              "name": "human_review_required",
+              "value": "={{ $('Deterministic Candidate Scoring').first().json.governance.human_review_required }}",
+              "type": "string"
+            },
+            {
+              "id": "00733690-bd2c-42e7-82ce-c08321814258",
+              "name": "screened_at",
+              "value": "={{ $now }}",
+              "type": "string"
+            },
+            {
+              "id": "daf02d58-5412-4f1b-a206-c58207ff05ab",
+              "name": "resume_source",
+              "value": "={{ $('Normalize Candidate Intake').first().json.resume_url }}",
+              "type": "string"
+            },
+            {
+              "id": "2dbe1ea4-6d39-414a-accd-2aff90db0e9b",
+              "name": "potential_gaps",
+              "value": "={{ JSON.stringify($('Deterministic Candidate Scoring').first().json.potential_gaps) }}",
+              "type": "string"
+            },
+            {
+              "id": "bc5adba2-07c6-49df-aa19-e6d6346cf2c1",
+              "name": "strengths",
+              "value": "={{ JSON.stringify($('Deterministic Candidate Scoring').first().json.strengths) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1264,
+        -288
+      ],
+      "id": "fbe7ebcd-a16e-484a-a536-048bfaaa19c6",
+      "name": "Prepare Screening Record"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "2b2d705b-52c1-4077-957e-a62a1358c93c",
+              "leftValue": "={{ $json.human_review_required.toBoolean() }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1712,
+        -288
+      ],
+      "id": "c73062d4-0908-42d6-aeec-a7816bd4a6c3",
+      "name": "Human Review Gate"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1xQ7XDY2e1UBxRAs8ii3wKOI2ibqouEY85OdUaEoicgc",
+          "mode": "list",
+          "cachedResultName": "Candidate Screening",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xQ7XDY2e1UBxRAs8ii3wKOI2ibqouEY85OdUaEoicgc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1xQ7XDY2e1UBxRAs8ii3wKOI2ibqouEY85OdUaEoicgc/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "candidate_name": "={{ $json.candidate_name }}",
+            "email": "={{ $json.email }}",
+            "phone": "={{ $json.phone }}",
+            "target_job": "={{ $json.target_job }}",
+            "screening_score": "={{ $json.screening_score }}",
+            "score_maximum": "={{ $json.score_maximum }}",
+            "recommendation": "={{ $json.recommendation }}",
+            "human_review_required": "={{ $json.human_review_required }}",
+            "screened_at": "={{ $json.screened_at }}",
+            "resume_source": "={{ $('Normalize Candidate Intake').first().json.resume_url }}",
+            "potential_gaps": "={{ JSON.parse($json.potential_gaps).join(' | ') }}",
+            "strengths": "={{ JSON.parse($json.strengths).map(s => s.claim).join(' | ') }}",
+            "hr_decision": "APPROVE"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "candidate_name",
+              "displayName": "candidate_name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "email",
+              "displayName": "email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "phone",
+              "displayName": "phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "target_job",
+              "displayName": "target_job",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "screening_score",
+              "displayName": "screening_score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "score_maximum",
+              "displayName": "score_maximum",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "recommendation",
+              "displayName": "recommendation",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "human_review_required",
+              "displayName": "human_review_required",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "screened_at",
+              "displayName": "screened_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "resume_source",
+              "displayName": "resume_source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "potential_gaps",
+              "displayName": "potential_gaps",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "strengths",
+              "displayName": "strengths",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "hr_decision",
+              "displayName": "hr_decision",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "hr_reviewer",
+              "displayName": "hr_reviewer",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "hr_review_date",
+              "displayName": "hr_review_date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "hr_notes",
+              "displayName": "hr_notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "interview_status",
+              "displayName": "interview_status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "interview_scheduled_at",
+              "displayName": "interview_scheduled_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1488,
+        -288
+      ],
+      "id": "3566fbcd-6fe3-40a8-9994-4316dfcf0d28",
+      "name": "Candidate Screening",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "5dMADFJGlBXeaF8v",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "apughosh059@gmail.com",
+        "subject": "=HR Review Required — {{ $json.candidate_name }} — {{ $json.target_job }}",
+        "emailType": "text",
+        "message": "=Hello HR Team,  A candidate has completed the automated screening process and requires human review.  CANDIDATE DETAILS ------------------------- Candidate Name: {{ $json.candidate_name }} Email: {{ $json.email }} Phone: {{ $json.phone }}  TARGET POSITION ------------------------- Job Title: {{ $json.target_job }}  SCREENING RESULT ------------------------- Screening Score: {{ $json.screening_score }}/{{ $json.score_maximum }} Recommendation: {{ $json.recommendation }} Human Review Required: {{ $json.human_review_required }}  STRENGTHS ------------------------- {{ $json.strengths }}  POTENTIAL GAPS ------------------------- {{ $json.potential_gaps }}  IMPORTANT ------------------------- This is an evidence-based screening result.  The AI system does not make the final hiring decision.  Human review is required before proceeding with the candidate.  Please review the candidate and record the final decision in the Candidate Screening sheet.  Regards, HR Interview Automation System",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1936,
+        -288
+      ],
+      "id": "bbd53f71-4895-412e-8969-d82fab848420",
+      "name": "HR Email",
+      "webhookId": "5934bdfb-4f5e-4c0e-b336-32011cc1693b",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "k9X1FsEeLDpa6MSU",
+          "name": "Gmail account 2"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize Candidate Intake",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Candidate Intake": {
+      "main": [
+        [
+          {
+            "node": "Validate Candidate Intake",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Candidate Intake": {
+      "main": [
+        [
+          {
+            "node": "Mark Candidate Valid",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mark Intake Invalid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mark Candidate Valid": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract from File": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Parse Resume Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Resume Analysis": {
+      "main": [
+        [
+          {
+            "node": "Deterministic Candidate Scoring",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Deterministic Candidate Scoring": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Prepare Screening Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Screening Record": {
+      "main": [
+        [
+          {
+            "node": "Candidate Screening",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Human Review Gate": {
+      "main": [
+        [
+          {
+            "node": "HR Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Candidate Screening": {
+      "main": [
+        [
+          {
+            "node": "Human Review Gate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "0e8da889-26a3-41b6-a65a-3125759f82f8",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a2722732ac6e7a4dd8b19a9a2e10278bebb09f92074d992974928382839956ee"
+  },
+  "nodeGroups": [],
+  "id": "d8tDb3qL6WmmaHW2",
+  "tags": []
+}
